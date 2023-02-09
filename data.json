@@ -1,16 +1,10 @@
 {
   "people": [
     {
-      "name": "Dario",
-      "email": "dario@gmail.com",
-      "createdAt": 1674928385927,
-      "id": 4
-    },
-    {
-      "name": "Maria",
-      "email": "maria@gmail.com",
-      "createdAt": 1674921657788,
-      "id": 3
+      "name": "Maco",
+      "email": "marco@gmail.com",
+      "createdAt": 1674928157193,
+      "id": 1
     },
     {
       "name": "Carlo",
@@ -19,10 +13,16 @@
       "id": 2
     },
     {
-      "name": "Maco",
-      "email": "marco@gmail.com",
-      "createdAt": 1674928157193,
-      "id": 1
+      "name": "Maria",
+      "email": "maria@gmail.com",
+      "createdAt": 1674921657788,
+      "id": 3
+    },
+    {
+      "name": "Dario",
+      "email": "dario@gmail.com",
+      "createdAt": 1674928385927,
+      "id": 4
     }
   ]
 }
