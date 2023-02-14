@@ -1,18 +1,19 @@
 'use strict';
 
-// Selectors
-const form = document.querySelector('form');
+import { fetchData } from './modules/fetchData.js';
+import { getUrlParam } from './modules/getUrlParam.js';
+import { form } from './utils/dom.js';
+import { URL } from './utils/env.js';
 
 // Functions
 const checkData = async () => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const id = searchParams.get('id');
-  // console.log({ searchParams, id });
+  const id = getUrlParam('id');
+
   if (!id) return;
 
-  const response = await fetch(`http://localhost:3000/people/${id}`);
+  const response = await fetchData(`${URL}/${id}`);
 
-  if (!response.ok) {
+  if (!response) {
     form.classList.add('d-none');
     const markup = `
     <div class="w-100 d-flex flex-column justify-content-center align-items-center">
@@ -24,10 +25,8 @@ const checkData = async () => {
     return;
   }
 
-  const responseData = await response.json();
-
-  form.elements.name.value = responseData.name;
-  form.elements.email.value = responseData.email;
+  form.elements.name.value = response.name;
+  form.elements.email.value = response.email;
 };
 
 checkData();
@@ -47,25 +46,24 @@ const submitForm = async event => {
       createdAt,
     };
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const id = searchParams.get('id');
+    const id = getUrlParam('id');
 
     let response;
     if (id) {
-      response = await fetch(`http://localhost:3000/people/${id}`, {
+      response = await fetchData(`${URL}/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(formData),
         headers: { 'Content-Type': 'application/json' },
       });
     } else {
-      response = await fetch('http://localhost:3000/people', {
+      response = await fetchData(URL, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    if (response.ok) window.location = '/';
+    if (response) window.location = '/';
   }
   form.classList.add('was-validated');
 };

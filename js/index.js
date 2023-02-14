@@ -1,26 +1,12 @@
 'use strict';
 
-const tbody = document.querySelector('tbody');
+import { fetchData } from './modules/fetchData.js';
+import { tbody } from './utils/dom.js';
+import { URL } from './utils/env.js';
 
 // Functions
-const loading = () => {
-  const loaderContainer = document.createElement('div');
-  loaderContainer.classList.add('loader-container');
-
-  const spinner = document.createElement('div');
-  spinner.classList.add('spinner-border', 'text-primary');
-  spinner.setAttribute('role', 'status');
-
-  loaderContainer.appendChild(spinner);
-  document.body.appendChild(loaderContainer);
-
-  return loaderContainer;
-};
-
 const getData = async () => {
-  const loader = loading();
-  const response = await (await fetch('http://localhost:3000/people')).json();
-  loader.remove();
+  const response = await fetchData(URL);
 
   if (response) {
     tbody.innerHTML = '';
@@ -71,23 +57,17 @@ const getData = async () => {
   }
 };
 
-const fetchDeleteRow = async id => {
-  const response = await fetch(`http://localhost:3000/people/${id}`, {
-    method: 'DELETE',
-  });
-
-  return response;
-};
-
 // Event Listeners
 tbody.addEventListener('click', async e => {
   const deleteBtn = e.target.closest('.btn-danger');
 
   if (!deleteBtn) return;
 
-  const response = await fetchDeleteRow(deleteBtn.id);
+  const response = await fetchData(`${URL}/${deleteBtn.id}`, {
+    method: 'DELETE',
+  });
 
-  if (response.ok) getData();
+  if (response) getData();
 });
 
 tbody.addEventListener('click', async e => {
