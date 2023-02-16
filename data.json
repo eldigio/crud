@@ -34,12 +34,6 @@
       "email": "pippo@gmail.com",
       "createdAt": 1676371394786,
       "id": 6
-    },
-    {
-      "name": "Pluto",
-      "email": "pluto@gmail.com",
-      "createdAt": 1676375243282,
-      "id": 7
     }
   ]
 }
